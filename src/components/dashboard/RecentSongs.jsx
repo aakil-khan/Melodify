@@ -1,4 +1,4 @@
-import { recentSongs } from "../../data/recentSongs";
+import { recentSongs } from "../../data/recentsongs";
 
 export default function RecentSongs() {
   return (

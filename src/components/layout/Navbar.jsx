@@ -1,39 +1,68 @@
+import { useState } from "react";
+import { Menu } from "lucide-react";
+
 import SearchBar from "../common/SearchBar";
 import ThemeToggle from "../common/ThemeToggle";
 import NotificationBell from "../common/NotificationBell";
 import ProfileMenu from "../common/ProfileMenu";
+import MobileSidebar from "./MobileSidebar";
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false);
+
   return (
-    <header className="sticky top-0 z-40 bg-slate-950 border-b border-slate-800 px-4 sm:px-6 lg:px-8 py-4">
+    <>
+      {/* Mobile Sidebar */}
+      <MobileSidebar open={open} setOpen={setOpen} />
 
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <header className="sticky top-0 z-40 bg-slate-950 border-b border-slate-800 px-4 sm:px-6 lg:px-8 py-4">
 
-        {/* Left Section */}
-        <div>
-          <h1 className="text-2xl lg:text-3xl font-bold text-white">
-            Dashboard
-          </h1>
+        {/* Top Row */}
+        <div className="flex items-center justify-between">
 
-          <p className="text-slate-400 text-sm mt-1">
-            Welcome back 
-          </p>
+          {/* Left */}
+          <div className="flex items-center gap-4">
+
+            {/* Mobile Menu */}
+            <button
+              onClick={() => setOpen(true)}
+              className="lg:hidden text-white"
+            >
+              <Menu size={28} />
+            </button>
+
+            <div>
+              <h1 className="text-2xl lg:text-3xl font-bold text-white">
+                Dashboard
+              </h1>
+
+              <p className="text-slate-400 text-sm">
+                Welcome back 👋
+              </p>
+            </div>
+
+          </div>
+
+          {/* Desktop Search */}
+          <div className="hidden lg:block w-[420px]">
+            <SearchBar />
+          </div>
+
+          {/* Right */}
+          <div className="flex items-center gap-4">
+            <ThemeToggle />
+            <NotificationBell />
+            <ProfileMenu />
+          </div>
+
         </div>
 
-        {/* Search */}
-        <div className="w-full lg:max-w-md">
+        {/* Mobile Search */}
+        <div className="mt-4 lg:hidden">
           <SearchBar />
         </div>
 
-        {/* Right Section */}
-        <div className="flex items-center justify-end gap-4">
-          <ThemeToggle />
-          <NotificationBell />
-          <ProfileMenu />
-        </div>
-
-      </div>
-
-    </header>
+      </header>
+    </>
   );
 }

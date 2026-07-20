@@ -3,6 +3,7 @@ import SearchBar from "../components/common/SearchBar";
 import SongsTable from "../components/songs/SongsTable";
 import Select from "../components/common/Select";
 import { songs } from "../data/songs";
+import SongCard from "../components/songs/SongCard";
 
 export default function Songs() {
   // State
@@ -157,7 +158,17 @@ gap-5 items-center text-sm text-slate-400">
       </div>
 
       {/* Table */}
-      <SongsTable songs={currentSongs} />
+      {/* Desktop Table */}
+<div className="hidden lg:block">
+  <SongsTable songs={songs} />
+</div>
+
+{/* Mobile Cards */}
+<div className="lg:hidden space-y-4">
+  {songs.map((song) => (
+    <SongCard key={song.id} song={song} />
+  ))}
+</div>
 
       {/* Pagination */}
       {totalPages > 1 && (
